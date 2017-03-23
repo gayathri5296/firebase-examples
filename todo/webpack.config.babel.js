@@ -1,3 +1,4 @@
+import path from 'path'
 import webpack from 'webpack'
 
 module.exports = {
@@ -12,11 +13,12 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'build/'),
     },
-    devtool: 'inline-source-map',
+    devtool: 'cheap-eval-source-map',
     module: {
         rules: [{
             test: /\.js$/,
-            use: ['babel-loader']
+            use: ['babel-loader'],
+            exclude: /node_modules/
         }]
     },
     plugins: [
