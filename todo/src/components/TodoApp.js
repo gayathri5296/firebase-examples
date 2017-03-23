@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import createHistory from 'history/createBrowserHistory'
-import classNames from 'classNames';
-console.log(createHistory)
+import classNames from 'classNames'
 
 import {
     ALL_TODOS,
@@ -9,7 +8,8 @@ import {
     COMPLETED_TODOS,
     ENTER_KEY
 } from '../constants'
-import { connect } from './FirebaseHOC'
+import { connect } from '../hoc/FirebaseHOC'
+
 import TodoItem from './TodoItem'
 import TodoFooter from './TodoFooter'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 
-import TodoApp from './components/App'
+import TodoApp from './components/TodoApp'
 
 const draw = Component => {
     render(
@@ -16,5 +16,5 @@ const draw = Component => {
 draw(TodoApp)
 
 if (module.hot) {
-    module.hot.accept('./components/App', () => { draw(TodoApp) })
+    module.hot.accept('./components/TodoApp', () => { draw(TodoApp) })
 }
