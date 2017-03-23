@@ -78,6 +78,10 @@ export function connect(ComposedComponent) {
             this.todosRef.child(key).remove();
         }
 
+        removeCompletedTodos() {
+            this.removeTodo(key);
+        }
+
         render() {
             return <ComposedComponent
                 {...this.props}

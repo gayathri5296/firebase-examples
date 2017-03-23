@@ -118,7 +118,6 @@ TodoItem.propTypes = {
         completed: PropTypes.bool
     }).isRequired,
     editing: PropTypes.bool.isRequired,
-    editText: PropTypes.string.isRequired,
     onSave: PropTypes.func.isRequired,
     onDestroy: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,

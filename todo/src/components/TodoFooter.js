@@ -12,7 +12,8 @@ export default function TodoFooter ({
     count,
     nowShowing,
     completedCount,
-    onClearCompleted
+    onClearCompleted,
+    changeNav
 }) {
     const activeTodoWord = (count, 'item');
     let clearButton;
@@ -28,6 +29,10 @@ export default function TodoFooter ({
         );
     }
 
+    const onChangeNav = (location) => {
+        changeNav(location)
+    }
+
     return (
         <footer className="footer">
             <span className="todo-count">
@@ -36,7 +41,7 @@ export default function TodoFooter ({
             <ul className="filters">
                 <li>
                     <a
-                        href="#/"
+                        onClick={onChangeNav.bind(this, '/')}
                         className={classNames({selected: nowShowing === ALL_TODOS})}>
                             All
                     </a>
@@ -44,7 +49,7 @@ export default function TodoFooter ({
                 {' '}
                 <li>
                     <a
-                        href="#/active"
+                        onClick={onChangeNav.bind(this, '/active')}
                         className={classNames({selected: nowShowing === ACTIVE_TODOS})}>
                             Active
                     </a>
@@ -52,7 +57,7 @@ export default function TodoFooter ({
                 {' '}
                 <li>
                     <a
-                        href="#/completed"
+                        onClick={onChangeNav.bind(this, '/completed')}
                         className={classNames({selected: nowShowing === COMPLETED_TODOS})}>
                             Completed
                     </a>

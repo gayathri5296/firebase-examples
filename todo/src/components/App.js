@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import director from 'director';
+import createHistory from 'history/createBrowserHistory'
 import classNames from 'classNames';
+console.log(createHistory)
 
 import {
     ALL_TODOS,
@@ -27,13 +28,28 @@ class TodoApp extends Component {
     }
 
     componentDidMount() {
-        const setState = this.setState;
-        const router = new director.http.Router({
-            '/': setState.bind(this, {nowShowing: ALL_TODOS}),
-            '/active': setState.bind(this, {nowShowing: ACTIVE_TODOS}),
-            '/completed': setState.bind(this, {nowShowing: COMPLETED_TODOS})
-        });
-        //router.init('/');
+        var locationMap = {
+            '/': ALL_TODOS,
+            '/active': ACTIVE_TODOS,
+            '/completed': COMPLETED_TODOS
+        }
+
+        this.history = createHistory()
+        this.unlisten = this.history.listen((location, action) => {
+            this.setState({
+                nowShowing: locationMap[location.pathname]
+            })
+        })
+
+        this.history.push('/');
+    }
+
+    componentWillUnmount() {
+        this.unlisten();
+    }
+
+    changeNav(location) {
+        this.history.push(location);
     }
 
     handleChange(event) {
@@ -134,6 +150,7 @@ class TodoApp extends Component {
                     completedCount={completedCount}
                     nowShowing={this.state.nowShowing}
                     onClearCompleted={this.clearCompleted}
+                    changeNav={this.changeNav.bind(this)}
                 />;
         }
 
