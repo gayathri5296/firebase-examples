@@ -61,8 +61,6 @@ export function connect(ComposedComponent) {
         addTodo(todo) {
             var newTodoRef = this.todosRef.push();
             newTodoRef.set(todo);
-
-            var topUserPostsRef = this.todosRef.orderByChild('completed');
         }
 
         updateTodo(key, field, value) {
