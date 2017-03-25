@@ -1,13 +1,8 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
+import _ from 'lodash'
 
-var config = {
-    apiKey: "AIzaSyD297dN4CZb_xg6TbMDojDL-cggma7Q8oM",
-    authDomain: "todo-7b0f0.firebaseapp.com",
-    databaseURL: "https://todo-7b0f0.firebaseio.com",
-    storageBucket: "todo-7b0f0.appspot.com",
-    messagingSenderId: "172022022134"
-};
+import { config } from '../firebase-config'
 firebase.initializeApp(config);
 
 export function connect(ComposedComponent) {
@@ -49,11 +44,12 @@ export function connect(ComposedComponent) {
         }
 
         removeTodos(data) {
+            const todos = this.state.todos;
             let newTodos = {};
 
-            Object.keys(this.state.todos).map((key) => {
-                if ( key !== data.key ) {
-                    newTodos[key] = this.state.todos[key];
+            _.forEach(todos, (todo, key) => {
+                if (key !== data.key) {
+                    newTodos[key] = todo;
                 }
             })
 
@@ -67,7 +63,6 @@ export function connect(ComposedComponent) {
             newTodoRef.set(todo);
 
             var topUserPostsRef = this.todosRef.orderByChild('completed');
-            console.log(topUserPostsRef)
         }
 
         updateTodo(key, field, value) {
@@ -76,10 +71,6 @@ export function connect(ComposedComponent) {
 
         removeTodo(key) {
             this.todosRef.child(key).remove();
-        }
-
-        removeCompletedTodos() {
-            this.removeTodo(key);
         }
 
         render() {

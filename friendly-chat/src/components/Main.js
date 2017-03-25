@@ -31,8 +31,6 @@ export default class Main extends Component {
 
                 let msgBody;
 
-                console.log(msg)
-
                 if ( msg.text ) {
                     msgBody = (
                         <div className="message">{msg.text}</div>

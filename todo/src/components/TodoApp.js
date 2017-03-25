@@ -13,6 +13,9 @@ import { connect } from '../hoc/FirebaseHOC'
 import TodoItem from './TodoItem'
 import TodoFooter from './TodoFooter'
 
+import baseStyles from '../../node_modules/todomvc-common/base.css'
+import indexStyles from '../../node_modules/todomvc-app-css/index.css'
+
 class TodoApp extends Component {
     constructor(props) {
         super(props);
@@ -80,19 +83,19 @@ class TodoApp extends Component {
     }
 
     toggle(todo) {
-        this.props.updateTodo(todo.id, 'completed', !todo.completed);
+        this.props.updateTodo(todo.key, 'completed', !todo.completed);
     }
 
     destroy(todo) {
-        this.props.removeTodo(todo.id)
+        this.props.removeTodo(todo.key)
     }
 
     edit(todo) {
-        this.setState({ editing: todo.id });
+        this.setState({ editing: todo.key });
     }
 
     save(todo, text) {
-        this.props.updateTodo(todo.id, 'title', text);
+        this.props.updateTodo(todo.key, 'title', text);
         this.setState({ editing: null });
     }
 
@@ -100,16 +103,12 @@ class TodoApp extends Component {
         this.setState({ editing: null });
     }
 
-    clearCompleted() {
-        this.props.model.clearCompleted();
-    }
-
     getParts(todos) {
         let main = null;
         let footer = null;
 
         const todosArray = Object.keys(todos).map((key) => {
-            return Object.assign(todos[key], { id: key });
+            return Object.assign(todos[key], { key: key });
         })
 
         const shownTodos = todosArray.filter((todo) => {
@@ -126,12 +125,12 @@ class TodoApp extends Component {
         const todoItems = shownTodos.map((todo) => {
             return (
                 <TodoItem
-                    key={todo.id}
+                    key={todo.key}
                     todo={todo}
                     onToggle={this.toggle.bind(this, todo)}
                     onDestroy={this.destroy.bind(this, todo)}
                     onEdit={this.edit.bind(this, todo)}
-                    editing={this.state.editing === todo.id}
+                    editing={this.state.editing === todo.key}
                     onSave={this.save.bind(this, todo)}
                     onCancel={this.cancel}
                 />
@@ -149,7 +148,6 @@ class TodoApp extends Component {
                     count={activeTodoCount}
                     completedCount={completedCount}
                     nowShowing={this.state.nowShowing}
-                    onClearCompleted={this.clearCompleted}
                     changeNav={this.changeNav.bind(this)}
                 />;
         }
@@ -163,9 +161,10 @@ class TodoApp extends Component {
                         onChange={this.toggleAll}
                         checked={activeTodoCount === 0}
                     />
-                    <ul className="todo-list">
+                    <ul className="todo-list" style={{ display: todoItems.length ? 'block' : 'none' }}>
                         {todoItems}
                     </ul>
+                    <span style={{ display: todoItems.length ? 'none' : 'block', padding: '20px', textAlign: 'center', color: '#ccc' }}>Nothing to show</span>
                 </section>
             );
         }

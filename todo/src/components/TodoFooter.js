@@ -16,18 +16,6 @@ export default function TodoFooter ({
     changeNav
 }) {
     const activeTodoWord = (count, 'item');
-    let clearButton;
-
-    if (completedCount > 0)  {
-        clearButton = (
-            <button
-                className="clear-completed"
-                onClick={onClearCompleted}
-            >
-                Clear completed
-            </button>
-        );
-    }
 
     const onChangeNav = (location) => {
         changeNav(location)
@@ -63,7 +51,6 @@ export default function TodoFooter ({
                     </a>
                 </li>
             </ul>
-            {clearButton}
         </footer>
     )
 }

@@ -4,18 +4,15 @@ import * as firebase from 'firebase';
 import Header from './Header'
 import Main from './Main'
 
-import styles from '../styles/styles.css'
+import {
+    PROFILE_PLACEHOLDER,
+    LOADING_IMAGE_URL
+} from '../constants'
 
-const PROFILE_PLACEHOLDER = '/src/images/profile_placeholder.png';
-const LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
-var config = {
-    apiKey: "AIzaSyAN9Xk9MHp2hPMsDI9_FTKlDB6pcB9ZFdg",
-    authDomain: "friendlychat-5e136.firebaseapp.com",
-    databaseURL: "https://friendlychat-5e136.firebaseio.com",
-    storageBucket: "friendlychat-5e136.appspot.com",
-    messagingSenderId: "1077476152465"
-};
+import { config } from '../firebase-config'
 firebase.initializeApp(config);
+
+import styles from '../styles/styles.css'
 
 class App extends Component {
     constructor(props) {
